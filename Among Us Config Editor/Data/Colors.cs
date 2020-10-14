@@ -7,6 +7,7 @@ namespace Among_Us_Config_Editor.Data
     public class Colors
     {
         public class Color
+            : IData
         {
             public int Id { get; set; }
 

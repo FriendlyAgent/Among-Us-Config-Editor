@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -38,26 +40,71 @@ namespace Among_Us_Config_Editor
             cbHat.DataSource = Hats.Values;
             cbHat.DisplayMember = "Name";
             cbHat.ValueMember = "Id";
+            cbHat.DrawMode = DrawMode.OwnerDrawVariable;
+            cbHat.DrawItem += cboDrawImage_DrawItem;
 
             _costumes = Costumes.Values.ToDictionary(a => a.Id);
             cbCostume.DataSource = Costumes.Values;
             cbCostume.DisplayMember = "Name";
             cbCostume.ValueMember = "Id";
+            cbCostume.DrawMode = DrawMode.OwnerDrawVariable;
+            cbCostume.DrawItem += cboDrawImage_DrawItem;
 
             _pets = Pets.Values.ToDictionary(a => a.Id);
             cbPet.DataSource = Pets.Values;
             cbPet.DisplayMember = "Name";
             cbPet.ValueMember = "Id";
+            cbPet.DrawMode = DrawMode.OwnerDrawVariable;
+            cbPet.DrawItem += cboDrawImage_DrawItem;
 
             _colors = Colors.Values.ToDictionary(a => a.Id);
             cbColor.DataSource = Colors.Values;
             cbColor.DisplayMember = "Name";
             cbColor.ValueMember = "Id";
+            cbColor.DrawMode = DrawMode.OwnerDrawVariable;
+            cbColor.DrawItem += cboDrawImage_DrawItem;
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
             SetSettings();
+        }
+
+        private void cboDrawImage_DrawItem(
+            object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0)
+                return;
+
+            e.DrawBackground();
+
+            var cbo = sender as ComboBox;
+            var item = (IData)cbo.Items[e.Index];
+
+            e.Graphics.DrawString(
+                item.Name,
+                e.Font,
+                new SolidBrush(e.ForeColor),
+                e.Bounds.Left,
+                e.Bounds.Top);
+
+            if (item.ImageResource != null)
+            {
+                float height = e.Bounds.Height - 2;
+                float scale = height / item.ImageResource.Height;
+                float width = item.ImageResource.Width * scale;
+
+                RectangleF rect = new RectangleF(
+                    e.Bounds.X + (e.Bounds.Width - width) - 2,
+                    e.Bounds.Y,
+                    width, height);
+
+                e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+
+                e.Graphics.DrawImage(item.ImageResource, rect);
+            }
+
+            e.DrawFocusRectangle();
         }
 
         public void SetSettings()
@@ -234,10 +281,5 @@ namespace Among_Us_Config_Editor
 
         [DllImport("shell32.dll")]
         static extern int SHGetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, IntPtr hToken, out IntPtr pszPath);
-
-        private void tcMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -272,7 +272,6 @@
             this.tcMain.Size = new System.Drawing.Size(373, 395);
             this.tcMain.TabIndex = 1;
             this.tcMain.TabStop = false;
-            this.tcMain.SelectedIndexChanged += new System.EventHandler(this.tcMain_SelectedIndexChanged);
             // 
             // tpAbout
             // 

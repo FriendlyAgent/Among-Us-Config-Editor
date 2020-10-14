@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace Among_Us_Config_Editor
+namespace Among_Us_Config_Editor.Data
 {
     public class Hats
     {
         public class Hat
+            : IData
         {
             public int Id { get; set; }
 
