@@ -45,7 +45,7 @@ namespace Among_Us_Config_Editor.Data
                 new Costume()
                 {
                     Id = 5,
-                    Name = "Military"
+                    Name = "Police"
                 },
                 new Costume()
                 {

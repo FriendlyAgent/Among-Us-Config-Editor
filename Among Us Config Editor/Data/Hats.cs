@@ -240,7 +240,7 @@ namespace Among_Us_Config_Editor
                 new Hat()
                 {
                     Id = 44,
-                    Name = "Black Fedora"
+                    Name = "Ski Goggles"
                 },
                 new Hat()
                 {
