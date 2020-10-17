@@ -18,6 +18,8 @@ namespace Among_Us_Config_Editor
         : Form
     {
         private Settings _settings;
+        private int MaxVolume = 255;
+
 
         private readonly Dictionary<int, Hats.Hat> _hats;
         private readonly Dictionary<int, Costumes.Costume> _costumes;
@@ -63,6 +65,8 @@ namespace Among_Us_Config_Editor
             cbColor.ValueMember = "Id";
             cbColor.DrawMode = DrawMode.OwnerDrawVariable;
             cbColor.DrawItem += cboDrawImage_DrawItem;
+
+            cbLanguage.DataSource = Enum.GetValues(typeof(Languages));
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -130,27 +134,68 @@ namespace Among_Us_Config_Editor
                 txtName.Enabled = true;
             }
 
-            cbInvisible.Enabled = true;
+            tbSfxVolume.ValueChanged -= tbSfxVolume_ValueChanged;
+            tbSfxVolume.Value = (int)Math.Round((100m * _settings.SfxVolume) / MaxVolume); ;
+            tbSfxVolume.ValueChanged += tbSfxVolume_ValueChanged;
+
+            tbMusicVolume.ValueChanged -= tbMusicVolume_ValueChanged;
+            tbMusicVolume.Value = (int)Math.Round((100m * _settings.MusicVolume) / MaxVolume); ;
+            tbMusicVolume.ValueChanged += tbMusicVolume_ValueChanged;
+
+            cbCensorChat.CheckStateChanged -= cbCensorChat_CheckStateChanged;
+            cbCensorChat.Checked = _settings.CensorChat;
+            cbCensorChat.CheckStateChanged += cbCensorChat_CheckStateChanged;
+
+            cbVSync.CheckStateChanged -= cbVSync_CheckStateChanged;
+            cbVSync.Checked = _settings.Vsync;
+            cbVSync.CheckStateChanged += cbVSync_CheckStateChanged;
 
             var hatId = _settings.Hat;
             cbHat.SelectedValue = _settings.Hat;
             pbHat.Image = _hats[hatId].ImageResource;
-            cbHat.Enabled = true;
 
             var costumeId = _settings.Costume;
             cbCostume.SelectedValue = costumeId;
             pbCostume.Image = _costumes[costumeId].ImageResource;
-            cbCostume.Enabled = true;
 
             var petId = _settings.Pet;
             cbPet.SelectedValue = petId;
             pbPet.Image = _pets[petId].ImageResource;
-            cbPet.Enabled = true;
 
             var colorId = _settings.Color;
             cbColor.SelectedValue = colorId;
             pbColor.Image = _colors[colorId].ImageResource;
-            cbColor.Enabled = true;
+
+            cbLanguage.SelectedItem = (Languages)_settings.Language;
+
+            if (_settings.Controls == 0)
+            {
+                rbMouse.CheckedChanged -= rbControls_CheckedChanged;
+                rbMouse.Checked = true;
+                rbMouse.CheckedChanged += rbControls_CheckedChanged;
+            }
+            else
+            {
+                rbMouseAndKeyboard.CheckedChanged -= rbControls_CheckedChanged;
+                rbMouseAndKeyboard.Checked = true;
+                rbMouseAndKeyboard.CheckedChanged += rbControls_CheckedChanged;
+            }
+        }
+
+        void rbControls_CheckedChanged(object sender, EventArgs e)
+        {
+            var radioButton = sender as RadioButton;
+            if (radioButton.Checked)
+            {
+                if (radioButton == rbMouse)
+                {
+                    _settings.Controls = 0;
+                }
+                else
+                {
+                    _settings.Controls = 1;
+                }
+            }
         }
 
         private void SettingsFileChanged(object sender, EventArgs e)
@@ -254,6 +299,30 @@ namespace Among_Us_Config_Editor
         private void llbSourceRepository_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             UrlHelper.OpenBrowser(ConstValues.Url);
+        }
+
+        private void cbVSync_CheckStateChanged(object sender, EventArgs e)
+        {
+            _settings.Vsync = cbVSync.Checked;
+        }
+
+        private void cbCensorChat_CheckStateChanged(object sender, EventArgs e)
+        {
+            _settings.CensorChat = cbCensorChat.Checked;
+        }
+        private void tbSfxVolume_ValueChanged(object sender, EventArgs e)
+        {
+            _settings.SfxVolume = (int)Math.Round((MaxVolume / 100m) * tbSfxVolume.Value);
+        }
+
+        private void tbMusicVolume_ValueChanged(object sender, EventArgs e)
+        {
+            _settings.MusicVolume = (int)Math.Round((MaxVolume / 100m) * tbMusicVolume.Value);
+        }
+
+        private void cbLanguage_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _settings.Language = (int)cbLanguage.SelectedItem;
         }
 
         string GetKnownFolderPath(

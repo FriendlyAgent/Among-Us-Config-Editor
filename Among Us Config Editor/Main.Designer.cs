@@ -47,6 +47,18 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.cbPet = new System.Windows.Forms.ComboBox();
             this.tcMain = new System.Windows.Forms.TabControl();
+            this.tpSettings = new System.Windows.Forms.TabPage();
+            this.lblLanguage = new System.Windows.Forms.Label();
+            this.lblMusicVolume = new System.Windows.Forms.Label();
+            this.lblSfcVolume = new System.Windows.Forms.Label();
+            this.gbControls = new System.Windows.Forms.GroupBox();
+            this.rbMouseAndKeyboard = new System.Windows.Forms.RadioButton();
+            this.rbMouse = new System.Windows.Forms.RadioButton();
+            this.cbCensorChat = new System.Windows.Forms.CheckBox();
+            this.cbLanguage = new System.Windows.Forms.ComboBox();
+            this.cbVSync = new System.Windows.Forms.CheckBox();
+            this.tbMusicVolume = new System.Windows.Forms.TrackBar();
+            this.tbSfxVolume = new System.Windows.Forms.TrackBar();
             this.tpAbout = new System.Windows.Forms.TabPage();
             this.lblVersionCurrent = new System.Windows.Forms.Label();
             this.lblCreatedName = new System.Windows.Forms.Label();
@@ -62,6 +74,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPet)).BeginInit();
             this.tcMain.SuspendLayout();
+            this.tpSettings.SuspendLayout();
+            this.gbControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMusicVolume)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSfxVolume)).BeginInit();
             this.tpAbout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,7 +122,6 @@
             // 
             this.cbInvisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbInvisible.AutoSize = true;
-            this.cbInvisible.Enabled = false;
             this.cbInvisible.Location = new System.Drawing.Point(291, 6);
             this.cbInvisible.Name = "cbInvisible";
             this.cbInvisible.Size = new System.Drawing.Size(69, 19);
@@ -201,7 +216,6 @@
             this.cbCostume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCostume.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCostume.Enabled = false;
             this.cbCostume.FormattingEnabled = true;
             this.cbCostume.Location = new System.Drawing.Point(66, 119);
             this.cbCostume.Name = "cbCostume";
@@ -214,7 +228,6 @@
             this.cbHat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbHat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbHat.Enabled = false;
             this.cbHat.FormattingEnabled = true;
             this.cbHat.Location = new System.Drawing.Point(66, 90);
             this.cbHat.Name = "cbHat";
@@ -227,7 +240,6 @@
             this.cbColor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbColor.Enabled = false;
             this.cbColor.FormattingEnabled = true;
             this.cbColor.Location = new System.Drawing.Point(66, 61);
             this.cbColor.Name = "cbColor";
@@ -251,7 +263,6 @@
             this.cbPet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbPet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbPet.Enabled = false;
             this.cbPet.FormattingEnabled = true;
             this.cbPet.Location = new System.Drawing.Point(66, 33);
             this.cbPet.Name = "cbPet";
@@ -265,6 +276,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcMain.Controls.Add(this.tpCosmetics);
+            this.tcMain.Controls.Add(this.tpSettings);
             this.tcMain.Controls.Add(this.tpAbout);
             this.tcMain.Location = new System.Drawing.Point(12, 12);
             this.tcMain.Name = "tcMain";
@@ -272,6 +284,145 @@
             this.tcMain.Size = new System.Drawing.Size(373, 395);
             this.tcMain.TabIndex = 1;
             this.tcMain.TabStop = false;
+            // 
+            // tpSettings
+            // 
+            this.tpSettings.Controls.Add(this.lblLanguage);
+            this.tpSettings.Controls.Add(this.lblMusicVolume);
+            this.tpSettings.Controls.Add(this.lblSfcVolume);
+            this.tpSettings.Controls.Add(this.gbControls);
+            this.tpSettings.Controls.Add(this.cbCensorChat);
+            this.tpSettings.Controls.Add(this.cbLanguage);
+            this.tpSettings.Controls.Add(this.cbVSync);
+            this.tpSettings.Controls.Add(this.tbMusicVolume);
+            this.tpSettings.Controls.Add(this.tbSfxVolume);
+            this.tpSettings.Location = new System.Drawing.Point(4, 24);
+            this.tpSettings.Name = "tpSettings";
+            this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSettings.Size = new System.Drawing.Size(365, 367);
+            this.tpSettings.TabIndex = 3;
+            this.tpSettings.Text = "Settings";
+            this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // lblLanguage
+            // 
+            this.lblLanguage.AutoSize = true;
+            this.lblLanguage.Location = new System.Drawing.Point(3, 6);
+            this.lblLanguage.Name = "lblLanguage";
+            this.lblLanguage.Size = new System.Drawing.Size(62, 15);
+            this.lblLanguage.TabIndex = 8;
+            this.lblLanguage.Text = "Language:";
+            // 
+            // lblMusicVolume
+            // 
+            this.lblMusicVolume.AutoSize = true;
+            this.lblMusicVolume.Location = new System.Drawing.Point(3, 160);
+            this.lblMusicVolume.Name = "lblMusicVolume";
+            this.lblMusicVolume.Size = new System.Drawing.Size(85, 15);
+            this.lblMusicVolume.TabIndex = 7;
+            this.lblMusicVolume.Text = "Music Volume:";
+            // 
+            // lblSfcVolume
+            // 
+            this.lblSfcVolume.AutoSize = true;
+            this.lblSfcVolume.Location = new System.Drawing.Point(3, 109);
+            this.lblSfcVolume.Name = "lblSfcVolume";
+            this.lblSfcVolume.Size = new System.Drawing.Size(72, 15);
+            this.lblSfcVolume.TabIndex = 6;
+            this.lblSfcVolume.Text = "SFX Volume:";
+            // 
+            // gbControls
+            // 
+            this.gbControls.Controls.Add(this.rbMouseAndKeyboard);
+            this.gbControls.Controls.Add(this.rbMouse);
+            this.gbControls.Location = new System.Drawing.Point(100, 32);
+            this.gbControls.Name = "gbControls";
+            this.gbControls.Size = new System.Drawing.Size(262, 71);
+            this.gbControls.TabIndex = 5;
+            this.gbControls.TabStop = false;
+            this.gbControls.Text = "Controls";
+            // 
+            // rbMouseAndKeyboard
+            // 
+            this.rbMouseAndKeyboard.AutoSize = true;
+            this.rbMouseAndKeyboard.Location = new System.Drawing.Point(14, 47);
+            this.rbMouseAndKeyboard.Name = "rbMouseAndKeyboard";
+            this.rbMouseAndKeyboard.Size = new System.Drawing.Size(137, 19);
+            this.rbMouseAndKeyboard.TabIndex = 1;
+            this.rbMouseAndKeyboard.TabStop = true;
+            this.rbMouseAndKeyboard.Text = "Mouse and Keyboard";
+            this.rbMouseAndKeyboard.UseVisualStyleBackColor = true;
+            this.rbMouseAndKeyboard.CheckedChanged += new System.EventHandler(this.rbControls_CheckedChanged);
+            // 
+            // rbMouse
+            // 
+            this.rbMouse.AutoSize = true;
+            this.rbMouse.Location = new System.Drawing.Point(14, 22);
+            this.rbMouse.Name = "rbMouse";
+            this.rbMouse.Size = new System.Drawing.Size(61, 19);
+            this.rbMouse.TabIndex = 0;
+            this.rbMouse.TabStop = true;
+            this.rbMouse.Text = "Mouse";
+            this.rbMouse.UseVisualStyleBackColor = true;
+            this.rbMouse.CheckedChanged += new System.EventHandler(this.rbControls_CheckedChanged);
+            // 
+            // cbCensorChat
+            // 
+            this.cbCensorChat.AutoSize = true;
+            this.cbCensorChat.Location = new System.Drawing.Point(3, 32);
+            this.cbCensorChat.Name = "cbCensorChat";
+            this.cbCensorChat.Size = new System.Drawing.Size(91, 19);
+            this.cbCensorChat.TabIndex = 4;
+            this.cbCensorChat.Text = "Censor Chat";
+            this.cbCensorChat.UseVisualStyleBackColor = true;
+            this.cbCensorChat.CheckStateChanged += new System.EventHandler(this.cbCensorChat_CheckStateChanged);
+            // 
+            // cbLanguage
+            // 
+            this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLanguage.FormattingEnabled = true;
+            this.cbLanguage.Location = new System.Drawing.Point(94, 3);
+            this.cbLanguage.Name = "cbLanguage";
+            this.cbLanguage.Size = new System.Drawing.Size(268, 23);
+            this.cbLanguage.TabIndex = 3;
+            this.cbLanguage.SelectionChangeCommitted += new System.EventHandler(this.cbLanguage_SelectionChangeCommitted);
+            // 
+            // cbVSync
+            // 
+            this.cbVSync.AutoSize = true;
+            this.cbVSync.Location = new System.Drawing.Point(3, 57);
+            this.cbVSync.Name = "cbVSync";
+            this.cbVSync.Size = new System.Drawing.Size(63, 19);
+            this.cbVSync.TabIndex = 2;
+            this.cbVSync.Text = "V-Sync";
+            this.cbVSync.UseVisualStyleBackColor = true;
+            this.cbVSync.CheckStateChanged += new System.EventHandler(this.cbVSync_CheckStateChanged);
+            // 
+            // tbMusicVolume
+            // 
+            this.tbMusicVolume.BackColor = System.Drawing.SystemColors.Window;
+            this.tbMusicVolume.Location = new System.Drawing.Point(94, 160);
+            this.tbMusicVolume.Maximum = 100;
+            this.tbMusicVolume.Name = "tbMusicVolume";
+            this.tbMusicVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbMusicVolume.Size = new System.Drawing.Size(268, 45);
+            this.tbMusicVolume.TabIndex = 0;
+            this.tbMusicVolume.TickFrequency = 10;
+            this.tbMusicVolume.Value = 100;
+            this.tbMusicVolume.ValueChanged += new System.EventHandler(this.tbMusicVolume_ValueChanged);
+            // 
+            // tbSfxVolume
+            // 
+            this.tbSfxVolume.BackColor = System.Drawing.SystemColors.Window;
+            this.tbSfxVolume.Location = new System.Drawing.Point(94, 109);
+            this.tbSfxVolume.Maximum = 100;
+            this.tbSfxVolume.Name = "tbSfxVolume";
+            this.tbSfxVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbSfxVolume.Size = new System.Drawing.Size(268, 45);
+            this.tbSfxVolume.TabIndex = 0;
+            this.tbSfxVolume.TickFrequency = 10;
+            this.tbSfxVolume.Value = 100;
+            this.tbSfxVolume.ValueChanged += new System.EventHandler(this.tbSfxVolume_ValueChanged);
             // 
             // tpAbout
             // 
@@ -387,6 +538,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPet)).EndInit();
             this.tcMain.ResumeLayout(false);
+            this.tpSettings.ResumeLayout(false);
+            this.tpSettings.PerformLayout();
+            this.gbControls.ResumeLayout(false);
+            this.gbControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbMusicVolume)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSfxVolume)).EndInit();
             this.tpAbout.ResumeLayout(false);
             this.tpAbout.PerformLayout();
             this.ResumeLayout(false);
@@ -422,6 +579,19 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblCreatedName;
         private System.Windows.Forms.Label lblVersionCurrent;
+        private System.Windows.Forms.TabPage tpSettings;
+        private System.Windows.Forms.TrackBar tbSfxVolume;
+        private System.Windows.Forms.TrackBar tbMusicVolume;
+        private System.Windows.Forms.ComboBox cbLanguage;
+        private System.Windows.Forms.CheckBox cbVSync;
+        private System.Windows.Forms.CheckBox cbCensorChat;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rbMouseAndKeyboard;
+        private System.Windows.Forms.RadioButton rbMouse;
+        private System.Windows.Forms.Label lblSfcVolume;
+        private System.Windows.Forms.Label lblMusicVolume;
+        private System.Windows.Forms.Label lblLanguage;
+        private System.Windows.Forms.GroupBox gbControls;
     }
 }
 
