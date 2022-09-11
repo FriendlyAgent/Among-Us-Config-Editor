@@ -487,6 +487,111 @@ namespace Among_Us_Config_Editor.Data
                 {
                     Id = 93,
                     Name = "Snow Crewmate"
+                },
+                new Hat()
+                {
+                    Id = 94,
+                    Name = "Geoff Keighley mask"
+                },
+                new Hat()
+                {
+                    Id = 95,
+                    Name = "Dave Panpa cap"
+                },
+                new Hat()
+                {
+                    Id = 96,
+                    Name = "Ellie Rose hair"
+                },
+                new Hat()
+                {
+                    Id = 97,
+                    Name = "Sven Svensson hat"
+                },
+                new Hat()
+                {
+                    Id = 98,
+                    Name = "Burt Curtis hat"
+                },
+                new Hat()
+                {
+                    Id = 99,
+                    Name = "Ellry mohawk"
+                },
+                new Hat()
+                {
+                    Id = 100,
+                    Name = "Thomas Chestershire monocles"
+                },
+                new Hat()
+                {
+                    Id = 101,
+                    Name = "Wizard hat"
+                },
+                new Hat()
+                {
+                    Id = 102,
+                    Name = "Fredrick Muenster hat"
+                },
+                new Hat()
+                {
+                    Id = 103,
+                    Name = "Mr. Macbeth hat"
+                },
+                new Hat()
+                {
+                    Id = 104,
+                    Name = "Mr. Macbeth hat"
+                },
+                new Hat()
+                {
+                    Id = 105,
+                    Name = "Toppat Ellie Rose hat"
+                },
+                new Hat()
+                {
+                    Id = 106,
+                    Name = "Geoffrey Plumb hat"
+                },
+                new Hat()
+                {
+                    Id = 107,
+                    Name = "Geoffrey Plumb hat"
+                },
+                new Hat()
+                {
+                    Id = 108,
+                    Name = "Chocolate ice cream"
+                },
+                new Hat()
+                {
+                    Id = 109,
+                    Name = "Heart pin"
+                },
+                new Hat()
+                {
+                    Id = 110,
+                    Name = "Ponytail"
+                },
+                new Hat()
+                {
+                    Id = 111,
+                    Name = "Rubber glove"
+                },
+                new Hat()
+                {
+                    Id = 112,
+                    Name = "Unicorn hat"
+                },
+                new Hat()
+                {
+                    Id = 113,
+                    Name = "Zipper hat"
+                },
+                new Hat()
+                {
+                    Id = 114,
+                    Name = "Right Hand Man hat and mustache"
                 }
            };
     }

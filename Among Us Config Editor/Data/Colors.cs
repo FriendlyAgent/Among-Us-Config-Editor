@@ -62,7 +62,7 @@ namespace Among_Us_Config_Editor.Data
                 {
                     Id = 8,
                     Name = "Purple"
-                },                
+                },
                 new Color()
                 {
                     Id = 9,
@@ -81,6 +81,36 @@ namespace Among_Us_Config_Editor.Data
                 new Color()
                 {
                     Id = 12,
+                    Name = "Maroon"
+                },
+                new Color()
+                {
+                    Id = 13,
+                    Name = "Rose"
+                },
+                new Color()
+                {
+                    Id = 14,
+                    Name = "Banana"
+                },
+                new Color()
+                {
+                    Id = 15,
+                    Name = "Gray"
+                },
+                new Color()
+                {
+                    Id = 16,
+                    Name = "Tan"
+                },
+                new Color()
+                {
+                    Id = 17,
+                    Name = "Coral"
+                },
+                new Color()
+                {
+                    Id = 18,
                     Name = "Fortegreen (Glitch)"
                 }
             };

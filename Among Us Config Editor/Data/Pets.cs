@@ -72,6 +72,11 @@ namespace Among_Us_Config_Editor.Data
                 {
                     Id = 10,
                     Name = "Bedcrab"
+                },
+                new Pet()
+                {
+                    Id = 11,
+                    Name = "Glitch Pet"
                 }
           };
     }

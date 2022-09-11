@@ -97,6 +97,21 @@ namespace Among_Us_Config_Editor.Data
                 {
                     Id = 15,
                     Name = "Archaelogist"
+                },
+                new Costume()
+                {
+                    Id = 16,
+                    Name = "Prisoner"
+                },
+                new Costume()
+                {
+                    Id = 17,
+                    Name = "CCC"
+                },
+                new Costume()
+                {
+                    Id = 18,
+                    Name = "Right Hand Man Reborn"
                 }
     };
     }
