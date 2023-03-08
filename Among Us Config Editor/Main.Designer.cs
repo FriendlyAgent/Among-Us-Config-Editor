@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.btnSave = new System.Windows.Forms.Button();
             this.tpCosmetics = new System.Windows.Forms.TabPage();
+            this.lblVisor = new System.Windows.Forms.Label();
+            this.cbVisor = new System.Windows.Forms.ComboBox();
+            this.pbVisor = new System.Windows.Forms.PictureBox();
             this.cbInvisible = new System.Windows.Forms.CheckBox();
             this.lblCostume = new System.Windows.Forms.Label();
             this.lblHat = new System.Windows.Forms.Label();
@@ -38,16 +41,20 @@
             this.lblPet = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.pbHat = new System.Windows.Forms.PictureBox();
-            this.pbCostume = new System.Windows.Forms.PictureBox();
+            this.pbSkin = new System.Windows.Forms.PictureBox();
             this.pbColor = new System.Windows.Forms.PictureBox();
             this.pbPet = new System.Windows.Forms.PictureBox();
-            this.cbCostume = new System.Windows.Forms.ComboBox();
+            this.cbSkin = new System.Windows.Forms.ComboBox();
             this.cbHat = new System.Windows.Forms.ComboBox();
             this.cbColor = new System.Windows.Forms.ComboBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.cbPet = new System.Windows.Forms.ComboBox();
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tpSettings = new System.Windows.Forms.TabPage();
+            this.cbColorBlindMode = new System.Windows.Forms.CheckBox();
+            this.cbStreamerMode = new System.Windows.Forms.CheckBox();
+            this.cbScreenShake = new System.Windows.Forms.CheckBox();
+            this.btnFolder = new System.Windows.Forms.Button();
             this.lblLanguage = new System.Windows.Forms.Label();
             this.lblMusicVolume = new System.Windows.Forms.Label();
             this.lblSfcVolume = new System.Windows.Forms.Label();
@@ -68,9 +75,12 @@
             this.llbProjectSite = new System.Windows.Forms.LinkLabel();
             this.lblCreatedBy = new System.Windows.Forms.Label();
             this.btnLaunch = new System.Windows.Forms.Button();
+            this.cbMouseMovementEnabled = new System.Windows.Forms.CheckBox();
+            this.cbAllowFriendInvites = new System.Windows.Forms.CheckBox();
             this.tpCosmetics.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVisor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHat)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCostume)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSkin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPet)).BeginInit();
             this.tcMain.SuspendLayout();
@@ -85,7 +95,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(310, 415);
+            this.btnSave.Location = new System.Drawing.Point(310, 448);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 0;
@@ -95,6 +105,9 @@
             // 
             // tpCosmetics
             // 
+            this.tpCosmetics.Controls.Add(this.lblVisor);
+            this.tpCosmetics.Controls.Add(this.cbVisor);
+            this.tpCosmetics.Controls.Add(this.pbVisor);
             this.tpCosmetics.Controls.Add(this.cbInvisible);
             this.tpCosmetics.Controls.Add(this.lblCostume);
             this.tpCosmetics.Controls.Add(this.lblHat);
@@ -102,10 +115,10 @@
             this.tpCosmetics.Controls.Add(this.lblPet);
             this.tpCosmetics.Controls.Add(this.lblName);
             this.tpCosmetics.Controls.Add(this.pbHat);
-            this.tpCosmetics.Controls.Add(this.pbCostume);
+            this.tpCosmetics.Controls.Add(this.pbSkin);
             this.tpCosmetics.Controls.Add(this.pbColor);
             this.tpCosmetics.Controls.Add(this.pbPet);
-            this.tpCosmetics.Controls.Add(this.cbCostume);
+            this.tpCosmetics.Controls.Add(this.cbSkin);
             this.tpCosmetics.Controls.Add(this.cbHat);
             this.tpCosmetics.Controls.Add(this.cbColor);
             this.tpCosmetics.Controls.Add(this.txtName);
@@ -113,10 +126,40 @@
             this.tpCosmetics.Location = new System.Drawing.Point(4, 24);
             this.tpCosmetics.Name = "tpCosmetics";
             this.tpCosmetics.Padding = new System.Windows.Forms.Padding(3);
-            this.tpCosmetics.Size = new System.Drawing.Size(365, 367);
+            this.tpCosmetics.Size = new System.Drawing.Size(365, 400);
             this.tpCosmetics.TabIndex = 0;
             this.tpCosmetics.Text = "Cosmetics";
             this.tpCosmetics.UseVisualStyleBackColor = true;
+            // 
+            // lblVisor
+            // 
+            this.lblVisor.AutoSize = true;
+            this.lblVisor.Location = new System.Drawing.Point(3, 150);
+            this.lblVisor.Name = "lblVisor";
+            this.lblVisor.Size = new System.Drawing.Size(36, 15);
+            this.lblVisor.TabIndex = 18;
+            this.lblVisor.Text = "Visor:";
+            // 
+            // cbVisor
+            // 
+            this.cbVisor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbVisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbVisor.FormattingEnabled = true;
+            this.cbVisor.Location = new System.Drawing.Point(66, 147);
+            this.cbVisor.Name = "cbVisor";
+            this.cbVisor.Size = new System.Drawing.Size(294, 23);
+            this.cbVisor.TabIndex = 17;
+            this.cbVisor.SelectionChangeCommitted += new System.EventHandler(this.cbVisor_SelectionChangeCommitted);
+            // 
+            // pbVisor
+            // 
+            this.pbVisor.Location = new System.Drawing.Point(3, 176);
+            this.pbVisor.Name = "pbVisor";
+            this.pbVisor.Size = new System.Drawing.Size(95, 105);
+            this.pbVisor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbVisor.TabIndex = 16;
+            this.pbVisor.TabStop = false;
             // 
             // cbInvisible
             // 
@@ -177,25 +220,25 @@
             // 
             // pbHat
             // 
-            this.pbHat.Location = new System.Drawing.Point(267, 148);
+            this.pbHat.Location = new System.Drawing.Point(267, 176);
             this.pbHat.Name = "pbHat";
             this.pbHat.Size = new System.Drawing.Size(95, 105);
             this.pbHat.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbHat.TabIndex = 7;
             this.pbHat.TabStop = false;
             // 
-            // pbCostume
+            // pbSkin
             // 
-            this.pbCostume.Location = new System.Drawing.Point(267, 259);
-            this.pbCostume.Name = "pbCostume";
-            this.pbCostume.Size = new System.Drawing.Size(95, 105);
-            this.pbCostume.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbCostume.TabIndex = 7;
-            this.pbCostume.TabStop = false;
+            this.pbSkin.Location = new System.Drawing.Point(267, 287);
+            this.pbSkin.Name = "pbSkin";
+            this.pbSkin.Size = new System.Drawing.Size(95, 105);
+            this.pbSkin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbSkin.TabIndex = 7;
+            this.pbSkin.TabStop = false;
             // 
             // pbColor
             // 
-            this.pbColor.Location = new System.Drawing.Point(104, 148);
+            this.pbColor.Location = new System.Drawing.Point(104, 176);
             this.pbColor.Name = "pbColor";
             this.pbColor.Size = new System.Drawing.Size(157, 216);
             this.pbColor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -204,24 +247,24 @@
             // 
             // pbPet
             // 
-            this.pbPet.Location = new System.Drawing.Point(3, 259);
+            this.pbPet.Location = new System.Drawing.Point(3, 287);
             this.pbPet.Name = "pbPet";
             this.pbPet.Size = new System.Drawing.Size(95, 105);
             this.pbPet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbPet.TabIndex = 5;
             this.pbPet.TabStop = false;
             // 
-            // cbCostume
+            // cbSkin
             // 
-            this.cbCostume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbSkin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCostume.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCostume.FormattingEnabled = true;
-            this.cbCostume.Location = new System.Drawing.Point(66, 119);
-            this.cbCostume.Name = "cbCostume";
-            this.cbCostume.Size = new System.Drawing.Size(294, 23);
-            this.cbCostume.TabIndex = 4;
-            this.cbCostume.SelectionChangeCommitted += new System.EventHandler(this.cbCostume_SelectionChangeCommitted);
+            this.cbSkin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSkin.FormattingEnabled = true;
+            this.cbSkin.Location = new System.Drawing.Point(66, 119);
+            this.cbSkin.Name = "cbSkin";
+            this.cbSkin.Size = new System.Drawing.Size(294, 23);
+            this.cbSkin.TabIndex = 4;
+            this.cbSkin.SelectionChangeCommitted += new System.EventHandler(this.cbSkin_SelectionChangeCommitted);
             // 
             // cbHat
             // 
@@ -281,12 +324,18 @@
             this.tcMain.Location = new System.Drawing.Point(12, 12);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(373, 395);
+            this.tcMain.Size = new System.Drawing.Size(373, 428);
             this.tcMain.TabIndex = 1;
             this.tcMain.TabStop = false;
             // 
             // tpSettings
             // 
+            this.tpSettings.Controls.Add(this.cbAllowFriendInvites);
+            this.tpSettings.Controls.Add(this.cbMouseMovementEnabled);
+            this.tpSettings.Controls.Add(this.cbColorBlindMode);
+            this.tpSettings.Controls.Add(this.cbStreamerMode);
+            this.tpSettings.Controls.Add(this.cbScreenShake);
+            this.tpSettings.Controls.Add(this.btnFolder);
             this.tpSettings.Controls.Add(this.lblLanguage);
             this.tpSettings.Controls.Add(this.lblMusicVolume);
             this.tpSettings.Controls.Add(this.lblSfcVolume);
@@ -299,10 +348,50 @@
             this.tpSettings.Location = new System.Drawing.Point(4, 24);
             this.tpSettings.Name = "tpSettings";
             this.tpSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSettings.Size = new System.Drawing.Size(365, 367);
+            this.tpSettings.Size = new System.Drawing.Size(365, 400);
             this.tpSettings.TabIndex = 3;
             this.tpSettings.Text = "Settings";
             this.tpSettings.UseVisualStyleBackColor = true;
+            // 
+            // cbColorBlindMode
+            // 
+            this.cbColorBlindMode.AutoSize = true;
+            this.cbColorBlindMode.Location = new System.Drawing.Point(3, 132);
+            this.cbColorBlindMode.Name = "cbColorBlindMode";
+            this.cbColorBlindMode.Size = new System.Drawing.Size(119, 19);
+            this.cbColorBlindMode.TabIndex = 12;
+            this.cbColorBlindMode.Text = "Color Blind Mode";
+            this.cbColorBlindMode.UseVisualStyleBackColor = true;
+            // 
+            // cbStreamerMode
+            // 
+            this.cbStreamerMode.AutoSize = true;
+            this.cbStreamerMode.Location = new System.Drawing.Point(3, 107);
+            this.cbStreamerMode.Name = "cbStreamerMode";
+            this.cbStreamerMode.Size = new System.Drawing.Size(107, 19);
+            this.cbStreamerMode.TabIndex = 11;
+            this.cbStreamerMode.Text = "Streamer Mode";
+            this.cbStreamerMode.UseVisualStyleBackColor = true;
+            // 
+            // cbScreenShake
+            // 
+            this.cbScreenShake.AutoSize = true;
+            this.cbScreenShake.Location = new System.Drawing.Point(3, 82);
+            this.cbScreenShake.Name = "cbScreenShake";
+            this.cbScreenShake.Size = new System.Drawing.Size(95, 19);
+            this.cbScreenShake.TabIndex = 10;
+            this.cbScreenShake.Text = "Screen Shake";
+            this.cbScreenShake.UseVisualStyleBackColor = true;
+            // 
+            // btnFolder
+            // 
+            this.btnFolder.Location = new System.Drawing.Point(284, 371);
+            this.btnFolder.Name = "btnFolder";
+            this.btnFolder.Size = new System.Drawing.Size(75, 23);
+            this.btnFolder.TabIndex = 9;
+            this.btnFolder.Text = "Folder";
+            this.btnFolder.UseVisualStyleBackColor = true;
+            this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
             // lblLanguage
             // 
@@ -316,7 +405,7 @@
             // lblMusicVolume
             // 
             this.lblMusicVolume.AutoSize = true;
-            this.lblMusicVolume.Location = new System.Drawing.Point(3, 160);
+            this.lblMusicVolume.Location = new System.Drawing.Point(3, 208);
             this.lblMusicVolume.Name = "lblMusicVolume";
             this.lblMusicVolume.Size = new System.Drawing.Size(85, 15);
             this.lblMusicVolume.TabIndex = 7;
@@ -325,7 +414,7 @@
             // lblSfcVolume
             // 
             this.lblSfcVolume.AutoSize = true;
-            this.lblSfcVolume.Location = new System.Drawing.Point(3, 109);
+            this.lblSfcVolume.Location = new System.Drawing.Point(3, 157);
             this.lblSfcVolume.Name = "lblSfcVolume";
             this.lblSfcVolume.Size = new System.Drawing.Size(72, 15);
             this.lblSfcVolume.TabIndex = 6;
@@ -335,9 +424,9 @@
             // 
             this.gbControls.Controls.Add(this.rbMouseAndKeyboard);
             this.gbControls.Controls.Add(this.rbMouse);
-            this.gbControls.Location = new System.Drawing.Point(100, 32);
+            this.gbControls.Location = new System.Drawing.Point(158, 32);
             this.gbControls.Name = "gbControls";
-            this.gbControls.Size = new System.Drawing.Size(262, 71);
+            this.gbControls.Size = new System.Drawing.Size(204, 71);
             this.gbControls.TabIndex = 5;
             this.gbControls.TabStop = false;
             this.gbControls.Text = "Controls";
@@ -381,9 +470,9 @@
             // 
             this.cbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLanguage.FormattingEnabled = true;
-            this.cbLanguage.Location = new System.Drawing.Point(94, 3);
+            this.cbLanguage.Location = new System.Drawing.Point(152, 3);
             this.cbLanguage.Name = "cbLanguage";
-            this.cbLanguage.Size = new System.Drawing.Size(268, 23);
+            this.cbLanguage.Size = new System.Drawing.Size(210, 23);
             this.cbLanguage.TabIndex = 3;
             this.cbLanguage.SelectionChangeCommitted += new System.EventHandler(this.cbLanguage_SelectionChangeCommitted);
             // 
@@ -401,11 +490,11 @@
             // tbMusicVolume
             // 
             this.tbMusicVolume.BackColor = System.Drawing.SystemColors.Window;
-            this.tbMusicVolume.Location = new System.Drawing.Point(94, 160);
+            this.tbMusicVolume.Location = new System.Drawing.Point(152, 208);
             this.tbMusicVolume.Maximum = 100;
             this.tbMusicVolume.Name = "tbMusicVolume";
             this.tbMusicVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbMusicVolume.Size = new System.Drawing.Size(268, 45);
+            this.tbMusicVolume.Size = new System.Drawing.Size(210, 45);
             this.tbMusicVolume.TabIndex = 0;
             this.tbMusicVolume.TickFrequency = 10;
             this.tbMusicVolume.Value = 100;
@@ -414,11 +503,11 @@
             // tbSfxVolume
             // 
             this.tbSfxVolume.BackColor = System.Drawing.SystemColors.Window;
-            this.tbSfxVolume.Location = new System.Drawing.Point(94, 109);
+            this.tbSfxVolume.Location = new System.Drawing.Point(152, 157);
             this.tbSfxVolume.Maximum = 100;
             this.tbSfxVolume.Name = "tbSfxVolume";
             this.tbSfxVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbSfxVolume.Size = new System.Drawing.Size(268, 45);
+            this.tbSfxVolume.Size = new System.Drawing.Size(210, 45);
             this.tbSfxVolume.TabIndex = 0;
             this.tbSfxVolume.TickFrequency = 10;
             this.tbSfxVolume.Value = 100;
@@ -436,7 +525,7 @@
             this.tpAbout.Location = new System.Drawing.Point(4, 24);
             this.tpAbout.Name = "tpAbout";
             this.tpAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAbout.Size = new System.Drawing.Size(365, 367);
+            this.tpAbout.Size = new System.Drawing.Size(365, 400);
             this.tpAbout.TabIndex = 2;
             this.tpAbout.Text = "About";
             this.tpAbout.UseVisualStyleBackColor = true;
@@ -511,7 +600,7 @@
             // btnLaunch
             // 
             this.btnLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLaunch.Location = new System.Drawing.Point(226, 415);
+            this.btnLaunch.Location = new System.Drawing.Point(226, 448);
             this.btnLaunch.Name = "btnLaunch";
             this.btnLaunch.Size = new System.Drawing.Size(75, 23);
             this.btnLaunch.TabIndex = 6;
@@ -519,22 +608,42 @@
             this.btnLaunch.UseVisualStyleBackColor = true;
             this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
             // 
+            // cbMouseMovementEnabled
+            // 
+            this.cbMouseMovementEnabled.AutoSize = true;
+            this.cbMouseMovementEnabled.Location = new System.Drawing.Point(158, 107);
+            this.cbMouseMovementEnabled.Name = "cbMouseMovementEnabled";
+            this.cbMouseMovementEnabled.Size = new System.Drawing.Size(168, 19);
+            this.cbMouseMovementEnabled.TabIndex = 13;
+            this.cbMouseMovementEnabled.Text = "Mouse Movement Enabled";
+            this.cbMouseMovementEnabled.UseVisualStyleBackColor = true;
+            // 
+            // cbAllowFriendInvites
+            // 
+            this.cbAllowFriendInvites.AutoSize = true;
+            this.cbAllowFriendInvites.Location = new System.Drawing.Point(158, 132);
+            this.cbAllowFriendInvites.Name = "cbAllowFriendInvites";
+            this.cbAllowFriendInvites.Size = new System.Drawing.Size(129, 19);
+            this.cbAllowFriendInvites.TabIndex = 14;
+            this.cbAllowFriendInvites.Text = "Allow Friend Invites";
+            this.cbAllowFriendInvites.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 450);
+            this.ClientSize = new System.Drawing.Size(397, 483);
             this.Controls.Add(this.btnLaunch);
             this.Controls.Add(this.tcMain);
             this.Controls.Add(this.btnSave);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "Among Us Config Editor";
-            this.Load += new System.EventHandler(this.Main_Load);
             this.tpCosmetics.ResumeLayout(false);
             this.tpCosmetics.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVisor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbHat)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCostume)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSkin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPet)).EndInit();
             this.tcMain.ResumeLayout(false);
@@ -554,7 +663,7 @@
 
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TabPage tpCosmetics;
-        private System.Windows.Forms.ComboBox cbCostume;
+        private System.Windows.Forms.ComboBox cbSkin;
         private System.Windows.Forms.ComboBox cbHat;
         private System.Windows.Forms.ComboBox cbColor;
         private System.Windows.Forms.TextBox txtName;
@@ -562,7 +671,7 @@
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.PictureBox pbPet;
         private System.Windows.Forms.PictureBox pbColor;
-        private System.Windows.Forms.PictureBox pbCostume;
+        private System.Windows.Forms.PictureBox pbSkin;
         private System.Windows.Forms.PictureBox pbHat;
         private System.Windows.Forms.Label lblHat;
         private System.Windows.Forms.Label lblColor;
@@ -592,6 +701,17 @@
         private System.Windows.Forms.Label lblMusicVolume;
         private System.Windows.Forms.Label lblLanguage;
         private System.Windows.Forms.GroupBox gbControls;
+        private System.Windows.Forms.Button btnFolder;
+        private System.Windows.Forms.PictureBox pbVisor;
+        private System.Windows.Forms.ProgressBar pbLevel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblVisor;
+        private System.Windows.Forms.ComboBox cbVisor;
+        private System.Windows.Forms.CheckBox cbScreenShake;
+        private System.Windows.Forms.CheckBox cbStreamerMode;
+        private System.Windows.Forms.CheckBox cbColorBlindMode;
+        private System.Windows.Forms.CheckBox cbAllowFriendInvites;
+        private System.Windows.Forms.CheckBox cbMouseMovementEnabled;
     }
 }
 

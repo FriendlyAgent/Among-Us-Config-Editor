@@ -2,11 +2,11 @@
 
 namespace Among_Us_Config_Editor.Data
 {
-    public class Hats
+    public class Visors
     {
-        public class Hat
+        public class Visor
             : IData
-        {
+        {          
             public int Id { get; set; }
 
             public string AmongUsValue { get; set; }
@@ -14,14 +14,14 @@ namespace Among_Us_Config_Editor.Data
             public string DisplayValue { get; set; }
         }
 
-        public static IEnumerable<Hat> Values { get; set; }
-           = new List<Hat>() {
-                new Hat()
+        public static IEnumerable<Visor> Values { get; set; }
+            = new List<Visor>() {
+                new Visor()
                 {
                     Id = 0,
-                    AmongUsValue = "hat_NoHat",
-                    DisplayValue = "No Hat"
+                    AmongUsValue = "visor_EmptyVisor",
+                    DisplayValue = "No Visor"
                 }
-           };
+            };
     }
 }

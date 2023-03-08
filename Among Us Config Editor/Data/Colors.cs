@@ -1,6 +1,4 @@
-﻿using Among_Us_Config_Editor.Properties;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
 
 namespace Among_Us_Config_Editor.Data
 {
@@ -11,9 +9,10 @@ namespace Among_Us_Config_Editor.Data
         {
             public int Id { get; set; }
 
-            public string Name { get; set; }
+            public string AmongUsValue { get; set; }
 
-            public Image ImageResource => (Image)Resources.ResourceManager.GetObject($"color_{Id}");
+            public string DisplayValue { get; set; }
+
         }
 
         public static IEnumerable<Color> Values { get; set; }
@@ -21,97 +20,117 @@ namespace Among_Us_Config_Editor.Data
                 new Color()
                 {
                     Id = 0,
-                    Name = "Red"
+                    AmongUsValue = "0",
+                    DisplayValue = "Red",
+
                 },
                 new Color()
                 {
                     Id = 1,
-                    Name = "Blue"
+                    AmongUsValue = "1",
+                    DisplayValue = "Blue"
                 },
                 new Color()
                 {
                     Id = 2,
-                    Name = "Green"
+                    AmongUsValue = "2",
+                    DisplayValue = "Green"
                 },
                 new Color()
                 {
                     Id = 3,
-                    Name = "Pink"
+                    AmongUsValue = "3",
+                    DisplayValue = "Pink"
                 },
                 new Color()
                 {
                     Id = 4,
-                    Name = "Orange"
+                    AmongUsValue = "4",
+                    DisplayValue = "Orange"
                 },
                 new Color()
                 {
                     Id = 5,
-                    Name = "Yellow"
+                    AmongUsValue = "5",
+                    DisplayValue = "Yellow"
                 },
                 new Color()
                 {
                     Id = 6,
-                    Name = "Black"
+                    AmongUsValue = "6",
+                    DisplayValue = "Black"
                 },
                 new Color()
                 {
                     Id = 7,
-                    Name = "White"
+                    AmongUsValue = "7",
+                    DisplayValue = "White"
                 },
                 new Color()
                 {
                     Id = 8,
-                    Name = "Purple"
+                    AmongUsValue = "8",
+                    DisplayValue = "Purple"
                 },
                 new Color()
                 {
                     Id = 9,
-                    Name = "Brown"
+                    AmongUsValue = "9",
+                    DisplayValue = "Brown"
                 },
                 new Color()
                 {
                     Id = 10,
-                    Name = "Cyan"
+                    AmongUsValue = "10",
+                    DisplayValue = "Cyan"
                 },
                 new Color()
                 {
                     Id = 11,
-                    Name = "Lime"
+                    AmongUsValue = "11",
+                    DisplayValue = "Lime"
                 },
                 new Color()
                 {
                     Id = 12,
-                    Name = "Maroon"
+                    AmongUsValue = "12",
+                    DisplayValue = "Maroon"
                 },
                 new Color()
                 {
-                    Id = 13,
-                    Name = "Rose"
+                    Id= 13,
+                    AmongUsValue = "13",
+                    DisplayValue = "Rose"
                 },
                 new Color()
                 {
-                    Id = 14,
-                    Name = "Banana"
+                    Id= 14,
+                    AmongUsValue = "14",
+                    DisplayValue = "Banana"
                 },
                 new Color()
                 {
                     Id = 15,
-                    Name = "Gray"
+                    AmongUsValue = "15",
+                    DisplayValue = "Gray"
                 },
                 new Color()
                 {
                     Id = 16,
-                    Name = "Tan"
+                    AmongUsValue = "16",
+                    DisplayValue = "Tan"
                 },
                 new Color()
                 {
                     Id = 17,
-                    Name = "Coral"
+                    AmongUsValue = "17",
+                    DisplayValue = "Coral"
                 },
                 new Color()
                 {
                     Id = 18,
-                    Name = "Fortegreen (Glitch)"
+                    AmongUsValue = "18",
+                    DisplayValue = "Fortegreen (Glitch)"
                 }
             };
     }

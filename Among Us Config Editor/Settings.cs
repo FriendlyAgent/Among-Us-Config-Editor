@@ -1,274 +1,104 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Runtime.CompilerServices;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Among_Us_Config_Editor
 {
-    public class Settings
-        : IDisposable
+    public class Accessibility
     {
-        private readonly string _path;
-        private string[] _settings;
-        private FileSystemWatcher _watcher;
+        [JsonProperty("colorBlindMode")]
+        public bool ColorBlindMode { get; set; }
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event EventHandler FileChanged;
+    public class Audio
+    {
+        [JsonProperty("musicVolume")]
+        public double MusicVolume { get; set; }
 
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("sfxVolume")]
+        public double SfxVolume { get; set; }
+    }
 
-        private int _pet;
-        public int Pet
-        {
-            get { return _pet; }
-            set
-            {
-                if (_pet != value)
-                {
-                    _pet = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+    public class Gameplay
+    {
+        [JsonProperty("screenShake")]
+        public bool ScreenShake { get; set; }
 
-        private int _hat;
-        public int Hat
-        {
-            get { return _hat; }
-            set
-            {
-                if (_hat != value)
-                {
-                    _hat = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("streamerMode")]
+        public bool StreamerMode { get; set; }
+    }
 
-        private int _costume;
-        public int Costume
-        {
-            get { return _costume; }
-            set
-            {
-                if (_costume != value)
-                {
-                    _costume = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+    public class Input
+    {
+        [JsonProperty("inputMode")]
+        public int InputMode { get; set; }
 
-        private int _color;
-        public int Color
-        {
-            get { return _color; }
-            set
-            {
-                if (_color != value)
-                {
-                    _color = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("mouseMovementEnabled")]
+        public bool MouseMovementEnabled { get; set; }
 
-        private int _language;
-        public int Language
-        {
-            get { return _language; }
-            set
-            {
-                if (_language != value)
-                {
-                    _language = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("touchJoystickSize")]
+        public double TouchJoystickSize { get; set; }
+    }
 
-        private int _musicVolume;
-        public int MusicVolume
-        {
-            get { return _musicVolume; }
-            set
-            {
-                if (_musicVolume != value)
-                {
-                    _musicVolume = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+    public class Language
+    {
+        [JsonProperty("currentLanguage")]
+        public Languages CurrentLanguage { get; set; }
+    }
 
-        private int _sfxVolume;
-        public int SfxVolume
-        {
-            get { return _sfxVolume; }
-            set
-            {
-                if (_sfxVolume != value)
-                {
-                    _sfxVolume = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+    public class Multiplayer
+    {
+        [JsonProperty("crossPlay")]
+        public bool CrossPlay { get; set; }
 
-        private int _controls;
-        public int Controls
-        {
-            get { return _controls; }
-            set
-            {
-                if (_controls != value)
-                {
-                    _controls = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("allowFriendInvites")]
+        public bool AllowFriendInvites { get; set; }
 
-        private bool _vSync;
-        public bool Vsync
-        {
-            get { return _vSync; }
-            set
-            {
-                if (_vSync != value)
-                {
-                    _vSync = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("censorChat")]
+        public bool CensorChat { get; set; }
 
-        private bool _censorChat;
-        public bool CensorChat
-        {
-            get { return _censorChat; }
-            set
-            {
-                if (_censorChat != value)
-                {
-                    _censorChat = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        [JsonProperty("chatMode")]
+        public int ChatMode { get; set; }
 
-        public bool InSync
-        {
-            get
-            {
-                return (_name == _settings[0]) &&
-                    (_controls == int.Parse(_settings[1])) &&
-                    (_color == int.Parse(_settings[2])) &&
-                    (_sfxVolume == int.Parse(_settings[11])) &&
-                    (_musicVolume == int.Parse(_settings[12])) &&
-                    (_hat == int.Parse(_settings[10])) &&
-                    (_costume == int.Parse(_settings[15])) &&
-                    (_pet == int.Parse(_settings[16])) &&
-                    (_censorChat == bool.Parse(_settings[17])) &&
-                    (_language == int.Parse(_settings[18])) &&
-                    (_vSync == bool.Parse(_settings[19]));
-            }
-        }
+        [JsonProperty("quickChatFavorites")]
+        public List<object> QuickChatFavorites { get; set; }
 
-        public Settings(
-            string path)
-        {
-            _path = path;
-            _watcher = new FileSystemWatcher
-            {
-                Path = Path.GetDirectoryName(_path),
-                Filter = Path.GetFileName(_path),
-                NotifyFilter = NotifyFilters.LastWrite
-            };
+        [JsonProperty("hostOptions")]
+        public string HostOptions { get; set; }
 
-            _watcher.Changed += new FileSystemEventHandler(OnChanged);
-            _watcher.EnableRaisingEvents = true;
+        [JsonProperty("searchOptions")]
+        public string SearchOptions { get; set; }
+    }
 
-            LoadSettings();
-        }
+    public class Video
+    {
+        [JsonProperty("vsync")]
+        public bool Vsync { get; set; }
+    }
 
-        private void LoadSettings()
-        {
-            _watcher.EnableRaisingEvents = false;
+    public class Settings
+    {
+        [JsonProperty("gameplay")]
+        public Gameplay Gameplay { get; set; }
 
-            using (var csv = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using (var sr = new StreamReader(csv))
-            {
-                _settings = sr.ReadLine().Split(',');
-            }
+        [JsonProperty("accessibility")]
+        public Accessibility Accessibility { get; set; }
 
-            _name = _settings[0];
-            _controls = int.Parse(_settings[1]);
-            _color = int.Parse(_settings[2]);
-            _hat = int.Parse(_settings[10]);
-            _sfxVolume = int.Parse(_settings[11]);
-            _musicVolume = int.Parse(_settings[12]);
-            _costume = int.Parse(_settings[15]);
-            _pet = int.Parse(_settings[16]);
-            _censorChat = bool.Parse(_settings[17]);
-            _language = int.Parse(_settings[18]);
-            _vSync = bool.Parse(_settings[19]);
+        [JsonProperty("audio")]
+        public Audio Audio { get; set; }
 
-            _watcher.EnableRaisingEvents = true;
-        }
+        [JsonProperty("video")]
+        public Video Video { get; set; }
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        [JsonProperty("language")]
+        public Language Language { get; set; }
 
-        private void OnChanged(object sender, FileSystemEventArgs e)
-        {
-            LoadSettings();
-            OnFileChanged();
-        }
+        [JsonProperty("input")]
+        public Input Input { get; set; }
 
-        protected void OnFileChanged()
-        {
-            FileChanged?.Invoke(this, EventArgs.Empty);
-        }
+        [JsonProperty("multiplayer")]
+        public Multiplayer Multiplayer { get; set; }
 
-        public void Save()
-        {
-            _watcher.EnableRaisingEvents = false;
-
-            _settings[0] = _name;
-            _settings[1] = _controls.ToString();
-            _settings[2] = _color.ToString();
-            _settings[10] = _hat.ToString();
-            _settings[11] = _sfxVolume.ToString();
-            _settings[12] = _musicVolume.ToString();
-            _settings[15] = _costume.ToString();
-            _settings[16] = _pet.ToString();
-            _settings[17] = _censorChat.ToString();
-            _settings[18] = _language.ToString();
-            _settings[19] = _vSync.ToString();
-
-            File.WriteAllText(_path, string.Join(",", _settings));
-
-            _watcher.EnableRaisingEvents = true;
-        }
-
-        public void Dispose()
-        {
-
-        }
+        [JsonProperty("dataVersion")]
+        public int DataVersion { get; set; }
     }
 }

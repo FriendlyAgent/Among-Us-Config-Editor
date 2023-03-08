@@ -2,9 +2,9 @@
 
 namespace Among_Us_Config_Editor.Data
 {
-    public class Hats
+    public class Skins
     {
-        public class Hat
+        public class Skin
             : IData
         {
             public int Id { get; set; }
@@ -14,14 +14,14 @@ namespace Among_Us_Config_Editor.Data
             public string DisplayValue { get; set; }
         }
 
-        public static IEnumerable<Hat> Values { get; set; }
-           = new List<Hat>() {
-                new Hat()
+        public static IEnumerable<Skin> Values { get; set; }
+            = new List<Skin>() {
+                new Skin()
                 {
                     Id = 0,
-                    AmongUsValue = "hat_NoHat",
-                    DisplayValue = "No Hat"
+                    AmongUsValue = "skin_None",
+                    DisplayValue = "No Skin",
                 }
-           };
+            };
     }
 }

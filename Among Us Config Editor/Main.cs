@@ -1,5 +1,6 @@
 ﻿using Among_Us_Config_Editor.Data;
 using Among_Us_Config_Editor.Helpers;
+using Among_Us_Config_Editor.Properties;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,13 @@ namespace Among_Us_Config_Editor
     public partial class Main
         : Form
     {
-        private Settings _settings;
-        private int MaxVolume = 255;
+        private GameFileWatcher _settings;
 
-
-        private readonly Dictionary<int, Hats.Hat> _hats;
-        private readonly Dictionary<int, Costumes.Costume> _costumes;
-        private readonly Dictionary<int, Pets.Pet> _pets;
-        private readonly Dictionary<int, Colors.Color> _colors;
+        private readonly Dictionary<int?, Image> _visors;
+        private readonly Dictionary<int?, Image> _hats;
+        private readonly Dictionary<int?, Image> _skins;
+        private readonly Dictionary<int?, Image> _pets;
+        private readonly Dictionary<int?, Image> _colors;
 
         public Main()
         {
@@ -32,50 +32,104 @@ namespace Among_Us_Config_Editor
 
             lblVersionCurrent.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             var localLow = GetKnownFolderPath(new Guid(ConstValues.LocalLowId));
-            var path = $"{localLow}{ConstValues.PathPlayerPrefs}";
+            var path = $"{localLow}{ConstValues.PathPlayer}";
 
-            _settings = new Settings(path);
+            _settings = new GameFileWatcher(
+                $"{localLow}{ConstValues.PathPlayer}",
+                $"{localLow}{ConstValues.PathSettings}");
+
             _settings.PropertyChanged += SettingsPropertyChanged;
             _settings.FileChanged += SettingsFileChanged;
 
-            _hats = Hats.Values.ToDictionary(a => a.Id);
+            _visors = Visors.Values
+                .ToDictionary(a => (int?)a.Id, a => (Image)Resources.ResourceManager.GetObject($"visor_{a.AmongUsValue}"));
+
+            _hats = Hats.Values
+                .ToDictionary(a => (int?)a.Id, a => (Image)Resources.ResourceManager.GetObject($"hat_{a.AmongUsValue}"));
+
+            _skins = Skins.Values
+                .ToDictionary(a => (int?)a.Id, a => (Image)Resources.ResourceManager.GetObject($"skin_{a.AmongUsValue}"));
+
+            _pets = Pets.Values
+                .ToDictionary(a => (int?)a.Id, a => (Image)Resources.ResourceManager.GetObject($"pet_{a.AmongUsValue}"));
+
+            _colors = Colors.Values
+                .ToDictionary(a => (int?)a.Id, a => (Image)Resources.ResourceManager.GetObject($"color_{a.AmongUsValue}"));
+
+            cbVisor.DataSource = Visors.Values;
+            cbVisor.DisplayMember = "DisplayValue";
+            cbVisor.ValueMember = "Id";
+            cbVisor.DrawMode = DrawMode.OwnerDrawVariable;
+            cbVisor.DrawItem += cbVisor_DrawItem;
+
             cbHat.DataSource = Hats.Values;
-            cbHat.DisplayMember = "Name";
+            cbHat.DisplayMember = "DisplayValue";
             cbHat.ValueMember = "Id";
             cbHat.DrawMode = DrawMode.OwnerDrawVariable;
-            cbHat.DrawItem += cboDrawImage_DrawItem;
+            cbHat.DrawItem += cbHat_DrawItem;
 
-            _costumes = Costumes.Values.ToDictionary(a => a.Id);
-            cbCostume.DataSource = Costumes.Values;
-            cbCostume.DisplayMember = "Name";
-            cbCostume.ValueMember = "Id";
-            cbCostume.DrawMode = DrawMode.OwnerDrawVariable;
-            cbCostume.DrawItem += cboDrawImage_DrawItem;
+            cbSkin.DataSource = Skins.Values;
+            cbSkin.DisplayMember = "DisplayValue";
+            cbSkin.ValueMember = "Id";
+            cbSkin.DrawMode = DrawMode.OwnerDrawVariable;
+            cbSkin.DrawItem += cbSkin_DrawItem;
 
-            _pets = Pets.Values.ToDictionary(a => a.Id);
             cbPet.DataSource = Pets.Values;
-            cbPet.DisplayMember = "Name";
+            cbPet.DisplayMember = "DisplayValue";
             cbPet.ValueMember = "Id";
             cbPet.DrawMode = DrawMode.OwnerDrawVariable;
-            cbPet.DrawItem += cboDrawImage_DrawItem;
+            cbPet.DrawItem += cbPet_DrawItem;
 
-            _colors = Colors.Values.ToDictionary(a => a.Id);
             cbColor.DataSource = Colors.Values;
-            cbColor.DisplayMember = "Name";
+            cbColor.DisplayMember = "DisplayValue";
             cbColor.ValueMember = "Id";
             cbColor.DrawMode = DrawMode.OwnerDrawVariable;
-            cbColor.DrawItem += cboDrawImage_DrawItem;
+            cbColor.DrawItem += cbColor_DrawItem;
 
             cbLanguage.DataSource = Enum.GetValues(typeof(Languages));
-        }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
             SetSettings();
         }
 
-        private void cboDrawImage_DrawItem(
-            object sender, DrawItemEventArgs e)
+        private void cbHat_DrawItem(
+            object sender,
+            DrawItemEventArgs e)
+        {
+            Draw(sender, e, _hats);
+        }
+
+        private void cbSkin_DrawItem(
+            object sender,
+            DrawItemEventArgs e)
+        {
+            Draw(sender, e, _skins);
+        }
+
+        private void cbPet_DrawItem(
+            object sender,
+            DrawItemEventArgs e)
+        {
+            Draw(sender, e, _pets);
+        }
+
+        private void cbColor_DrawItem(
+            object sender,
+            DrawItemEventArgs e)
+        {
+            Draw(sender, e, _colors);
+        }
+
+        private void cbVisor_DrawItem(
+            object sender,
+            DrawItemEventArgs e)
+        {
+            Draw(sender, e, _visors);
+        }
+
+        private void Draw(
+            object sender,
+            DrawItemEventArgs e,
+            Dictionary<int?, Image> images)
         {
             if (e.Index < 0)
                 return;
@@ -86,27 +140,32 @@ namespace Among_Us_Config_Editor
             var item = (IData)cbo.Items[e.Index];
 
             e.Graphics.DrawString(
-                item.Name,
+                item.DisplayValue,
                 e.Font,
                 new SolidBrush(e.ForeColor),
                 e.Bounds.Left,
                 e.Bounds.Top);
 
-            if (item.ImageResource != null)
+            if (images.ContainsKey(item.Id))
             {
-                float height = e.Bounds.Height - 2;
-                float scale = height / item.ImageResource.Height;
-                float width = item.ImageResource.Width * scale;
+                var image = images[item.Id];
+                if (image != null)
+                {
+                    float height = e.Bounds.Height - 2;
+                    float scale = height / image.Height;
+                    float width = image.Width * scale;
 
-                RectangleF rect = new RectangleF(
-                    e.Bounds.X + (e.Bounds.Width - width) - 2,
-                    e.Bounds.Y,
-                    width, height);
+                    RectangleF rect = new RectangleF(
+                        e.Bounds.X + (e.Bounds.Width - width) - 2,
+                        e.Bounds.Y,
+                        width, height);
 
-                e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+                    e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
 
-                e.Graphics.DrawImage(item.ImageResource, rect);
+                    e.Graphics.DrawImage(image, rect);
+                }
             }
+
 
             e.DrawFocusRectangle();
         }
@@ -135,11 +194,12 @@ namespace Among_Us_Config_Editor
             }
 
             tbSfxVolume.ValueChanged -= tbSfxVolume_ValueChanged;
-            tbSfxVolume.Value = (int)Math.Round((100m * _settings.SfxVolume) / MaxVolume); ;
+
+            tbSfxVolume.Value = (int)(_settings.SfxVolume * 100);
             tbSfxVolume.ValueChanged += tbSfxVolume_ValueChanged;
 
             tbMusicVolume.ValueChanged -= tbMusicVolume_ValueChanged;
-            tbMusicVolume.Value = (int)Math.Round((100m * _settings.MusicVolume) / MaxVolume); ;
+            tbMusicVolume.Value = (int)(_settings.MusicVolume * 100);
             tbMusicVolume.ValueChanged += tbMusicVolume_ValueChanged;
 
             cbCensorChat.CheckStateChanged -= cbCensorChat_CheckStateChanged;
@@ -151,24 +211,83 @@ namespace Among_Us_Config_Editor
             cbVSync.CheckStateChanged += cbVSync_CheckStateChanged;
 
             var hatId = _settings.Hat;
-            cbHat.SelectedValue = _settings.Hat;
-            pbHat.Image = _hats[hatId].ImageResource;
+            if (hatId != null)
+            {
+                cbHat.SelectedValue = hatId;
 
-            var costumeId = _settings.Costume;
-            cbCostume.SelectedValue = costumeId;
-            pbCostume.Image = _costumes[costumeId].ImageResource;
+                if (_hats.ContainsKey(hatId))
+                {
+                    pbHat.Image = _hats[hatId];
+                }
+            }
+            else
+            {
+                cbHat.SelectedValue = "";
+            }
+
+            var skinId = _settings.Skin;
+            if (skinId != null)
+            {
+                cbSkin.SelectedValue = skinId;
+
+                if (_skins.ContainsKey(skinId))
+                {
+                    pbSkin.Image = _skins[skinId];
+                }
+            }
+            else
+            {
+                cbSkin.SelectedValue = "";
+            }
 
             var petId = _settings.Pet;
-            cbPet.SelectedValue = petId;
-            pbPet.Image = _pets[petId].ImageResource;
+            if (petId != null)
+            {
+                cbPet.SelectedValue = petId;
+
+                if (_pets.ContainsKey(petId))
+                {
+                    pbPet.Image = _pets[petId];
+                }
+            }
+            else
+            {
+                cbPet.SelectedValue = "";
+            }
 
             var colorId = _settings.Color;
-            cbColor.SelectedValue = colorId;
-            pbColor.Image = _colors[colorId].ImageResource;
+            if (colorId != null)
+            {
+                cbColor.SelectedValue = colorId;
 
-            cbLanguage.SelectedItem = (Languages)_settings.Language;
+                if (_colors.ContainsKey(colorId))
+                {
+                    pbColor.Image = _colors[colorId];
+                }
+            }
+            else
+            {
+                cbColor.SelectedValue = "";
+            }
 
-            if (_settings.Controls == 0)
+            var visorId = _settings.Visor;
+            if (visorId != null)
+            {
+                cbVisor.SelectedValue = visorId;
+
+                if (_visors.ContainsKey(visorId))
+                {
+                    pbVisor.Image = _visors[visorId];
+                }
+            }
+            else
+            {
+                cbVisor.SelectedValue = "";
+            }
+
+            cbLanguage.SelectedItem = _settings.Language;
+
+            if (_settings.Controls == 1)
             {
                 rbMouse.CheckedChanged -= rbControls_CheckedChanged;
                 rbMouse.Checked = true;
@@ -189,11 +308,11 @@ namespace Among_Us_Config_Editor
             {
                 if (radioButton == rbMouse)
                 {
-                    _settings.Controls = 0;
+                    _settings.Controls = 1;
                 }
                 else
                 {
-                    _settings.Controls = 1;
+                    _settings.Controls = 2;
                 }
             }
         }
@@ -226,28 +345,76 @@ namespace Among_Us_Config_Editor
         {
             var id = (int)cbPet.SelectedValue;
             _settings.Pet = id;
-            pbPet.Image = _pets[id].ImageResource;
+
+            if (_pets.ContainsKey(id))
+            {
+                pbPet.Image = _pets[id];
+            }
+            else
+            {
+                pbPet.Image = null;
+            }
         }
 
         private void cbColor_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var id = (int)cbColor.SelectedValue;
             _settings.Color = id;
-            pbColor.Image = _colors[id].ImageResource;
+            pbColor.Image = _colors[id];
+
+            if (_colors.ContainsKey(id))
+            {
+                pbColor.Image = _colors[id];
+            }
+            else
+            {
+                pbColor.Image = null;
+            }
         }
 
         private void cbHat_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var id = (int)cbHat.SelectedValue;
-            _settings.Hat = (int)cbHat.SelectedValue;
-            pbHat.Image = _hats[id].ImageResource;
+            _settings.Hat = id;
+
+            if (_hats.ContainsKey(id))
+            {
+                pbHat.Image = _hats[id];
+            }
+            else
+            {
+                pbHat.Image = null;
+            }
         }
 
-        private void cbCostume_SelectionChangeCommitted(object sender, EventArgs e)
+        private void cbSkin_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            var id = (int)cbCostume.SelectedValue;
-            _settings.Costume = id;
-            pbCostume.Image = _costumes[id].ImageResource;
+            var id = (int)cbSkin.SelectedValue;
+            _settings.Skin = id;
+
+            if (_skins.ContainsKey(id))
+            {
+                pbSkin.Image = _skins[id];
+            }
+            else
+            {
+                pbSkin.Image = null;
+            }
+        }
+
+        private void cbVisor_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var id = (int)cbVisor.SelectedValue;
+            _settings.Visor = id;
+
+            if (_visors.ContainsKey(id))
+            {
+                pbVisor.Image = _visors[id];
+            }
+            else
+            {
+                pbVisor.Image = null;
+            }
         }
 
         private void cbInvisible_CheckStateChanged(object sender, EventArgs e)
@@ -312,17 +479,17 @@ namespace Among_Us_Config_Editor
         }
         private void tbSfxVolume_ValueChanged(object sender, EventArgs e)
         {
-            _settings.SfxVolume = (int)Math.Round((MaxVolume / 100m) * tbSfxVolume.Value);
+            _settings.SfxVolume = (double)tbSfxVolume.Value / 100;
         }
 
         private void tbMusicVolume_ValueChanged(object sender, EventArgs e)
         {
-            _settings.MusicVolume = (int)Math.Round((MaxVolume / 100m) * tbMusicVolume.Value);
+            _settings.MusicVolume = (double)tbMusicVolume.Value / 100;
         }
 
         private void cbLanguage_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            _settings.Language = (int)cbLanguage.SelectedItem;
+            _settings.Language = (Languages)cbLanguage.SelectedItem;
         }
 
         string GetKnownFolderPath(
@@ -348,7 +515,17 @@ namespace Among_Us_Config_Editor
             }
         }
 
+        private void btnFolder_Click(object sender, EventArgs e)
+        {
+            var localLow = GetKnownFolderPath(new Guid(ConstValues.LocalLowId));
+            var path = $"{localLow}{ConstValues.PathAppDataFolder}";
+
+            Process.Start("explorer.exe", path);
+        }
+
         [DllImport("shell32.dll")]
         static extern int SHGetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, IntPtr hToken, out IntPtr pszPath);
+
+
     }
 }
